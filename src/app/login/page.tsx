@@ -19,6 +19,7 @@ export default async function LoginPage() {
           focus:border-blue-500 focus:ring focus:ring-blue-200
           placeholder-gray-400 w-full h-10 shadow transition ease-in-out duration-150"
         />
+        <button type="submit">Login</button>
       </form>
     </main>
   )
