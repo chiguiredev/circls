@@ -1,3 +1,5 @@
+"use client";
+
 type AuthFormProps = {
   error: string | null;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
