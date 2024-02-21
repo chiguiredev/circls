@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
 
-export default async function RegisterPage() {
+// TODO: improve data fetching with react-query library
+// use zod and react hook form for form validation and error handling
+
+export default function RegisterPage() {
 
   const [error, setError] = useState<string | null>(null);
 
@@ -57,6 +60,7 @@ export default async function RegisterPage() {
           focus:border-blue-500 focus:ring focus:ring-blue-200
           placeholder-gray-400 w-full h-10 shadow transition ease-in-out duration-150"
         />
+        {error && <p className="text-red-500 text-sm p-2 m-2">{error}</p>}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
           transition duration-150 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
