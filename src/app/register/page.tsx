@@ -1,9 +1,14 @@
 "use client";
+import { useState } from "react";
 
 export default async function RegisterPage() {
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setError(null);
 
     const form = new FormData(event.currentTarget);
 
@@ -20,9 +25,10 @@ export default async function RegisterPage() {
       });
 
       if (response.ok) {
-        console.log("response: ", response);
+        window.location.href = "/login";
       } else {
-        console.error("response: ", response);
+        const data = await response.json();
+        setError(data.error);
       }
     } catch (error) {
       console.error(error);
