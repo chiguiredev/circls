@@ -19,7 +19,13 @@ export default async function LoginPage() {
           focus:border-blue-500 focus:ring focus:ring-blue-200
           placeholder-gray-400 w-full h-10 shadow transition ease-in-out duration-150"
         />
-        <button type="submit">Login</button>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+          transition duration-150 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          type="submit"
+        >
+          Login
+        </button>
       </form>
     </main>
   )
