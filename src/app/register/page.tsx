@@ -1,42 +1,10 @@
 "use client";
-import { useState } from "react";
-
-// TODO: improve data fetching with react-query library
-// use zod and react hook form for form validation and error handling
+import { useRegistrationForm } from "@/userService/hooks/useRegistrationForm";
+// TODO: use react-hook-form to handle the form state and validation
 
 export default function RegisterPage() {
 
-  const [error, setError] = useState<string | null>(null);
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    setError(null);
-
-    const form = new FormData(event.currentTarget);
-
-    const email = form.get("email") as string;
-    const password = form.get("password") as string;
-
-    try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        window.location.href = "/login";
-      } else {
-        const data = await response.json();
-        setError(data.error);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const { error, handleSubmit } = useRegistrationForm();
 
   return (
     <main className="flex flex-col items-center justify-center h-dvh">
@@ -63,7 +31,8 @@ export default function RegisterPage() {
         {error && <p className="text-red-500 text-sm p-2 m-2">{error}</p>}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
-          transition duration-150 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+          transition duration-150 ease-in-out shadow-md hover:shadow-lg focus:outline-none
+          focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           type="submit"
         >
           Register
