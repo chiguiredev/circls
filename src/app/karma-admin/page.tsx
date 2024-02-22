@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { KarmaTable } from "@/karmaService/components/KarmaTable";
+import { API_URL } from "@/envService";
 import type { Session } from "next-auth";
 
 export default async function KarmaAdmin() {
@@ -14,7 +15,7 @@ export default async function KarmaAdmin() {
   let karmaPoints;
 
   try {
-    const response = await fetch("http://localhost:3000/api/v1/karma/");
+    const response = await fetch(`${API_URL}/v1/karma/`);
     karmaPoints = await response.json();
   } catch (error) {
     return (
