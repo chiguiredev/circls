@@ -1,5 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { KarmaTable } from "@/karmaService/components/KarmaTable";
+import { API_URL } from "@/envService";
 import type { Session } from "next-auth";
 
 export default async function KarmaAdmin() {
@@ -10,11 +12,24 @@ export default async function KarmaAdmin() {
     redirect("/");
   }
 
+  let karmaPoints;
+
+  try {
+    const response = await fetch(`${API_URL}/v1/karma/`);
+    karmaPoints = await response.json();
+  } catch (error) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <h1>
+          An error occurred fetching the karma points
+        </h1>
+      </main>
+    );
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>
-        Welcome to the karma page
-      </h1>
+      <KarmaTable rows={karmaPoints.karma_points_rows} />
     </main>
   );
 }
