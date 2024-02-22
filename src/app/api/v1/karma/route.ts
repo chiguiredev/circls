@@ -1,7 +1,7 @@
 import type { NextApiRequest } from 'next';
 import { NextResponse } from 'next/server';
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '@/userService/auth/authOptions';
+// import { getServerSession } from "next-auth/next"
+// import { authOptions } from '@/userService/auth/authOptions';
 import { getAllUsersKarmaPoints } from '@/karmaService/db_queries/getAllUsersKarmaPoints';
 import { getUserKarmaPointsByEmail } from '@/karmaService/db_queries/getUserKarmaPointsByEmail';
  
@@ -24,12 +24,6 @@ export async function GET (req: NextApiRequest) {
 }
 
 export async function POST (req: Request) {
-
-  const session = await getServerSession(
-    authOptions
-  );
-
-  console.log(session);
 
   let body;
 
