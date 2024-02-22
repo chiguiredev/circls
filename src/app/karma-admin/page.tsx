@@ -1,11 +1,10 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import type { Session } from "next-auth";
 
 export default async function KarmaAdmin() {
 
-  const session: Session | null = await getServerSession(authOptions);
+  const session: Session | null = await getServerSession();
 
   if (!session || session?.user?.name !== "admin") {
     redirect("/");

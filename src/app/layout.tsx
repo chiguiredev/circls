@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/shareComponents/Header";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import Providers from "./providers";
 import type { Session } from "next-auth";
 import "./globals.css";
@@ -20,7 +19,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const session: Session | null = await getServerSession(authOptions);
+  const session: Session | null = await getServerSession();
 
   return (
     <Providers session={session}>
