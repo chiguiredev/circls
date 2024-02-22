@@ -2,11 +2,13 @@ import type { Session } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/userService/auth/authOptions';
-import { getAllUsersKarmaPoints } from '@/karmaService/db_queries/getAllUsersKarmaPoints';
-import { getUserKarmaPointsByEmail } from '@/karmaService/db_queries/getUserKarmaPointsByEmail';
-import { checkUserHasPoints } from '@/karmaService/db_queries/checkUserHasPoints';
-import { createUserPoints } from '@/karmaService/db_queries/createUserPoints';
-import { updateUserPoints } from '@/karmaService/db_queries/updateUserPoints';
+import {
+  getAllUsersKarmaPoints,
+  checkUserHasPoints,
+  createUserPoints,
+  updateUserPoints,
+  getUserKarmaPointsByEmail,
+} from '@/karmaService/db_queries';
  
 export async function GET (req: NextRequest) {
   try {
