@@ -11,8 +11,8 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { },
-        password: { }
+        email: {},
+        password: {},
       },
       async authorize(credentials) {
         if(!credentials?.email || !credentials?.password) return null;
@@ -23,7 +23,13 @@ const handler = NextAuth({
         const passwordValid = await compare(credentials.password, user.password);
 
         if (user && passwordValid) {
-          return { id: user.id, email: user.email, role: user.role };
+          const returnUser = {
+            id: user.id,
+            name: user.role,
+            email: user.username,
+          };
+
+          return returnUser;
         }
 
         return null;
@@ -31,5 +37,7 @@ const handler = NextAuth({
     })
   ],
 });
+
+export const authOptions = handler;
 
 export { handler as GET, handler as POST }
