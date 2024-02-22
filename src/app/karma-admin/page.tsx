@@ -7,8 +7,6 @@ export default async function KarmaAdmin() {
 
   const session: Session | null = await getServerSession(authOptions);
 
-  console.log(session);
-
   if (!session || session?.user?.name !== "admin") {
     redirect("/");
   }
