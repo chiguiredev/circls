@@ -1,9 +1,13 @@
 import type { NextApiRequest } from 'next';
+import type { Session } from 'next-auth';
 import { NextResponse } from 'next/server';
-// import { getServerSession } from "next-auth/next"
-// import { authOptions } from '@/userService/auth/authOptions';
+import { getServerSession } from "next-auth/next"
+import { authOptions } from '@/userService/auth/authOptions';
 import { getAllUsersKarmaPoints } from '@/karmaService/db_queries/getAllUsersKarmaPoints';
 import { getUserKarmaPointsByEmail } from '@/karmaService/db_queries/getUserKarmaPointsByEmail';
+import { checkUserHasPoints } from '@/karmaService/db_queries/checkUserHasPoints';
+import { createUserPoints } from '@/karmaService/db_queries/createUserPoints';
+import { updateUserPoints } from '@/karmaService/db_queries/updateUserPoints';
  
 export async function GET (req: NextApiRequest) {
   try {
@@ -25,6 +29,12 @@ export async function GET (req: NextApiRequest) {
 
 export async function POST (req: Request) {
 
+  const session: Session | null = await getServerSession(authOptions);
+
+  if (!session || session?.user?.name !== 'admin') {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
+
   let body;
 
   try {
@@ -33,11 +43,44 @@ export async function POST (req: Request) {
     return NextResponse.json({ message: 'Invalid JSON' }, { status: 400 });
   }
 
-  const { email } = body;
+  const { email, karma_points } = body;
 
-  if (!email) {
-    return NextResponse.json({ message: 'Missing email' }, { status: 400 });
+  if (!email || !karma_points) {
+    return NextResponse.json({ message: 'Missing fields' }, { status: 400 });
   }
 
-  return NextResponse.json({ message: 'POST method not allowed' }, { status: 405 });
+  let hasPoints;
+  try {
+    hasPoints = await checkUserHasPoints(email);
+  } catch (error) {
+    return NextResponse.json(
+      { message: 'An error occurred checking if user has points' },
+      { status: 500 },
+    );
+  }
+
+  if (!hasPoints) {
+    try {
+      await createUserPoints(email, karma_points);
+    } catch (error) {
+      return NextResponse.json(
+        { message: 'An error occurred creating user points' },
+        { status: 500 },
+      );
+    }
+  } else {
+    try {
+      await updateUserPoints(email, karma_points);
+    } catch (error) {
+      return NextResponse.json(
+        { message: 'An error occurred updating user points' },
+        { status: 500 },
+      );
+    }
+  };
+
+  return NextResponse.json(
+    { message: `Success the user ${email} karma points are ${karma_points}` },
+    { status: 200 },
+  );
 }

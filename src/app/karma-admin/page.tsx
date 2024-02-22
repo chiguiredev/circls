@@ -20,7 +20,7 @@ export default async function KarmaAdmin() {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <h1>
-          An error occurred
+          An error occurred fetching the karma points
         </h1>
       </main>
     );
