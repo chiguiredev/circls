@@ -81,7 +81,7 @@ export async function POST (req: Request) {
   };
 
   return NextResponse.json(
-    { message: `Success the user ${email} karma points are ${karma_points}` },
+    { message: `Success the user ${email} karma points are ${karma_points}`, ok: true },
     { status: 200 },
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { KarmaModifyModal } from "../KarmaModifyModal/KarmaModifyModal";
+
 type KarmaRow = {
  id: number;
  username: string;
@@ -11,7 +13,6 @@ type KarmaTableProps = {
 };
 
 export const KarmaTable = (props: KarmaTableProps) => {
-
   return (
     <table className="min-w-full leading-normal">
       <thead className="bg-gray-800 text-white">
@@ -37,7 +38,9 @@ export const KarmaTable = (props: KarmaTableProps) => {
               {row.karma_points}
             </td>
             <td className="px-5 py-5 border-b border-gray-200 text-sm">
-              <button className="text-blue-500 hover:text-blue-800">Edit</button>
+              <KarmaModifyModal
+                email={row.username}
+              />
             </td>
           </tr>
         ))}
