@@ -1,6 +1,5 @@
-import type { NextApiRequest } from 'next';
 import type { Session } from 'next-auth';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/userService/auth/authOptions';
 import { getAllUsersKarmaPoints } from '@/karmaService/db_queries/getAllUsersKarmaPoints';
@@ -9,7 +8,7 @@ import { checkUserHasPoints } from '@/karmaService/db_queries/checkUserHasPoints
 import { createUserPoints } from '@/karmaService/db_queries/createUserPoints';
 import { updateUserPoints } from '@/karmaService/db_queries/updateUserPoints';
  
-export async function GET (req: NextApiRequest) {
+export async function GET (req: NextRequest) {
   try {
     const requestURL = new URL(req.url!);
 
