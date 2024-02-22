@@ -14,10 +14,12 @@ export const Header = () => {
 
   return (
     <header className="flex flex-row justify-center bg-gray-500">
-      <div className="container px-6 py-4">
-        <nav className="flex flex-row justify-between">
-          <Link href="/">Welcome to Circls</Link>
-          <ul className="flex flex-row">
+      <div className="container max-w-6xl px-6 py-4">
+        <nav className="flex flex-row justify-between items-center">
+          <Link href="/" className="text-white text-lg font-semibold hover:text-gray-200">
+            Welcome to Circls
+          </Link>
+          <ul className="flex flex-row space-x-4">
             <LogMenu session={session} />
           </ul>
         </nav>
