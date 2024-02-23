@@ -1,5 +1,3 @@
-// TODO: use react-query to handle the form submission
-// use zod to validate the form data before submitting
 import { useState } from "react";
 
 export const useRegistrationForm = () => {
