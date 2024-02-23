@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { KarmaTable } from "@/karmaService/components/KarmaTable";
-import { API_URL } from "@/envService";
+import { getAllUsersKarmaPoints } from "@/karmaService/apiCalls";
 import type { Session } from "next-auth";
 
 export default async function KarmaAdmin() {
@@ -15,8 +15,7 @@ export default async function KarmaAdmin() {
   let karmaPoints;
 
   try {
-    const response = await fetch(`${API_URL}/v1/karma/`);
-    karmaPoints = await response.json();
+    karmaPoints = await getAllUsersKarmaPoints();
   } catch (error) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
